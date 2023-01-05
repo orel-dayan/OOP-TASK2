@@ -8,8 +8,8 @@ public class EX2_1 {
     public static void main(String[] args) {
         long start, end;
         int numberOfFiles = 1000;
-        int maxNumberOfLines = 1500;
-        String[] fileNames = createTextFiles(numberOfFiles, 2, maxNumberOfLines);
+        int maxNumberOfLines = 999;
+        String[] fileNames = createTextFiles(numberOfFiles, 100, maxNumberOfLines);
         System.out.println("Checking " + numberOfFiles + " files with " + maxNumberOfLines + " maximum lines each:");
         System.out.println("---------------------------------------------------------");
         start = System.currentTimeMillis();
@@ -34,13 +34,12 @@ public class EX2_1 {
         System.out.println("The number of lines using ThreadPool :" + numLines +
                 " The time is took : " + (end - start) + " ms");
 
-        deleteFiles(fileNames);
     }
 
     /**
      * Creates text files with random amount of lines
      *
-     * @param n     number of files
+     * @param n  number of files
      * @param seed  seed for random
      * @param bound max number of lines in a file
      * @return array of file names
@@ -52,6 +51,7 @@ public class EX2_1 {
             filesNames[i] = "file_" + (i + 1) + ".txt";
             File newFile = new File(filesNames[i]);
             try {
+
                 newFile.createNewFile();
                 FileWriter writer = new FileWriter(filesNames[i]);
                 int numOfLines = rand.nextInt(bound);
@@ -66,13 +66,6 @@ public class EX2_1 {
 
         }
         return filesNames;
-    }
-
-    public static void deleteFiles(String[] filesNames) {
-        for (String fileName : filesNames) {
-            File file = new File(fileName);
-            file.delete();
-        }
     }
 
     // without threads
@@ -93,6 +86,7 @@ public class EX2_1 {
         return numOfLines;
 
     }
+
     // threadpool
     public static int getNumOfLinesThreadPool(String[] fileNames) {
         int numLines = 0;
@@ -144,9 +138,6 @@ public class EX2_1 {
         }
         return numOfLines;
     }
-
-
-
 
 
 }
