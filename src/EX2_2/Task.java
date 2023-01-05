@@ -2,61 +2,46 @@ package EX2_2;
 
 import java.util.concurrent.*;
 
-public class Task<T> implements Comparable<Task<T>>, Callable<T> {
-    private Future<T> future; // the future object associated with this task
-    private final Callable<T> method;
-    private TaskType taskType;
-
+public class Task<T> implements Comparable<Task<T>>,Callable<T>  {
+    private Future<T> future;
+    private Callable<T> method;
+    private TaskType type;
     public Task(Callable<T> task, TaskType taskType) {
         this.method = task;
-        this.taskType = taskType;
+        this.type = taskType;
     }
-    public Task(Callable<T> task)
-    {
+    public Task(Callable<T> task) {
         this.method= task;
-        this.taskType= TaskType.OTHER;
+        this.type = TaskType.OTHER;
+    }
+    public T get() throws InterruptedException, ExecutionException{
+        return (T) future.get();
+    }
+    public void setFuture(Future<T> future) {
+        this.future = future;
+    }
 
-
+    public TaskType getType() {
+        return type;
     }
 
 
     public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
         return new Task<T>(task,taskType);
     }
-
-    @Override
-    public int compareTo(Task t1) {
-        return t1.taskType.compareTo(this.taskType);
+    public  T get(long num, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
+        return (T) future.get(num,timeUnit);
     }
 
-    public T get() throws InterruptedException, ExecutionException{
-        return (T) future.get();
+
+    @Override
+    public int compareTo(Task task) {
+        return task.type.compareTo(this.type);
     }
 
     public T call() throws Exception {
         return this.method.call();
     }
-
-    public void setFuture(Future<T> future) {
-        this.future = future;
-    }
-
-    public TaskType getTaskType() {
-        return taskType;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
