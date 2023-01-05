@@ -9,7 +9,7 @@ public class EX2_1 {
         long start, end;
         int numberOfFiles = 1000;
         int maxNumberOfLines = 999;
-        String[] fileNames = createTextFiles(numberOfFiles, 100, maxNumberOfLines);
+        String[] fileNames = createTextFiles(numberOfFiles, 1, maxNumberOfLines);
         System.out.println("Checking " + numberOfFiles + " files with " + maxNumberOfLines + " maximum lines each:");
         System.out.println("---------------------------------------------------------");
         start = System.currentTimeMillis();
