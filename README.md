@@ -76,6 +76,7 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 ## question 6 in part A:
 ## UML
-![img.png](img.png)
+![image](https://user-images.githubusercontent.com/117816462/210965665-a864cb80-8162-43d9-930d-958d9d7a470d.png)
+
 
 ## Part B:
