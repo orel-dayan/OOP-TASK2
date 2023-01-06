@@ -10,8 +10,9 @@ public class CustomExecutor {
 
        this.priorityBlockingQueue = new PriorityBlockingQueue<>();
 
-        this.executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors()/2, Runtime.getRuntime().availableProcessors()-1
-                , 300, TimeUnit.MILLISECONDS, priorityBlockingQueue);
+        this.executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors()/2,
+             Runtime.getRuntime().availableProcessors()-1
+                      , 300, TimeUnit.MILLISECONDS, priorityBlockingQueue);
 
         this.currentMax = Integer.MIN_VALUE;
     }
