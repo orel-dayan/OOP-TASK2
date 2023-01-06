@@ -32,6 +32,10 @@ public class Task<T> implements Comparable<Task<T>>,Callable<T>  {
     public  T get(long num, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
         return (T) future.get(num,timeUnit);
     }
+    public static<T> Task <T> createTask(Callable<T> operation)
+    {
+        return new Task<T>(operation);
+    }
 
 
     @Override

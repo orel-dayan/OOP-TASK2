@@ -6,23 +6,26 @@ _Authors [orel-dayan@]() & [@roy-asraf1](https://github.com/roy-asraf1)_
 * Editor : IntelliJ IDEA
 * Language: Java
 * JDK: 19.0.1
-* Maven 4.0.0
 * JUnit 5.9.0
 
-### How to use our project
+### Getting Start
 
-Clone the repo 
+clone this repository 
 ```sh
 https://github.com/orel-dayan/OOP-TASK2.git
 ```
 ## About the project:
-Creating several text files and calculating the total number of lines in these files.
-We will use three methods:
-* Using threads
-* Using ThreadPool
-* Normal method without using threads
- 
+This project provides a set of utility functions for working with text files. we create text files and calculate the total number of lines in these files.  
+#### We will use three methods: ####  
+
+• Normal method without the use of threads
+
+• Using of threads
+
+• Using ThreadPool
+
 ## Part A:
+
 ### EX2_1:
 A class that contains 4 functions:
 - createTextFiles
@@ -64,6 +67,7 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 ## question 5 in part A:
 ### Compare between Running times of the methods:
+TODO 
 
 <img width="651" alt="image" src="https://user-images.githubusercontent.com/117677549/210896206-31bfb3e1-fde2-419d-b48f-9f9c7e0ec7cf.png">
 <img width="548" alt="image" src="https://user-images.githubusercontent.com/117677549/210897723-e1eb67a9-929e-4852-83b6-accdc861452f.png">
@@ -73,6 +77,6 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 ## question 6 in part A:
 ## UML
-orel put uml here <3
+![img.png](img.png)
 
 ## Part B:
