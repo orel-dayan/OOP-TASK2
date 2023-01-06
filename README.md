@@ -66,8 +66,7 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 
 ## question 5 in part A:
-### Compare between Running times of the methods:
-TODO 
+### Compare between Running times of the methods:z
 
 <img width="651" alt="image" src="https://user-images.githubusercontent.com/117677549/210896206-31bfb3e1-fde2-419d-b48f-9f9c7e0ec7cf.png">
 <img width="548" alt="image" src="https://user-images.githubusercontent.com/117677549/210897723-e1eb67a9-929e-4852-83b6-accdc861452f.png">
