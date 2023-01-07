@@ -43,9 +43,20 @@ public class CustomExecutor {
 
     public void gracefullyTerminate() {
         executor.shutdown();
+		try {
+			if (!executor.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+				executor.shutdownNow();
+			}
+		} catch (InterruptedException e) {
+			System.out.println("error"+ e);
+		}
     }
 
-    public int getCurrentMax() {
+	public PriorityBlockingQueue<Runnable> getPriorityBlockingQueue() {
+		return priorityBlockingQueue;
+	}
+
+	public int getCurrentMax() {
         return currentMax;
     }
 }
