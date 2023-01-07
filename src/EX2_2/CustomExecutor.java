@@ -17,8 +17,12 @@ public class CustomExecutor {
         this.currentMax = Integer.MIN_VALUE;
     }
 
-    public <T> Future<T> submit(Task<T> task) {
-        currentMax = Math.max(currentMax, task.getType().getPriorityValue());
+	public PriorityBlockingQueue<Runnable> getPriorityBlockingQueue() {
+		return priorityBlockingQueue;
+	}
+
+	public <T> Future<T> submit(Task<T> task) {
+        currentMax = Math.max(currentMax, task.getTypePrirory());
         return executor.submit(task);
     }
 
@@ -26,7 +30,7 @@ public class CustomExecutor {
 
         Task<T> task = new Task<>(callable, type);
 
-        currentMax = Math.max(currentMax, task.getType().getPriorityValue());
+        currentMax = Math.max(currentMax, task.getTypePrirory());
 
         return executor.submit(task);
     }
@@ -35,7 +39,7 @@ public class CustomExecutor {
 
         Task<T> task = new Task<T>(Task.createTask(callable));
 
-        currentMax = Math.max(currentMax, task.getType().getPriorityValue());
+        currentMax = Math.max(currentMax, task.getTypePrirory());
 
         return executor.submit(task);
     }
@@ -52,11 +56,11 @@ public class CustomExecutor {
 		}
     }
 
-	public PriorityBlockingQueue<Runnable> getPriorityBlockingQueue() {
-		return priorityBlockingQueue;
-	}
 
 	public int getCurrentMax() {
         return currentMax;
     }
+
+
+
 }

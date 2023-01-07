@@ -7,14 +7,21 @@ public class Task<T> implements Comparable<Task<T>>, Callable<T> {
     private Callable<T> method;
     private TaskType type;
 
+	static int taskNum = 0 ;
+
+	private String taskName = null ;
+
     public Task(Callable<T> task, TaskType taskType) {
         this.method = task;
         this.type = taskType;
+		this.taskName = "Task - " + taskNum++ ;
+
     }
 
     public Task(Callable<T> task) {
         this.method = task;
         this.type = TaskType.OTHER;
+		this.taskName = "Task - " + taskNum++ ;
     }
 
     public T get() throws InterruptedException, ExecutionException {
@@ -28,6 +35,9 @@ public class Task<T> implements Comparable<Task<T>>, Callable<T> {
     public TaskType getType() {
         return type;
     }
+	public int getTypePrirory() {
+		return type.getPriorityValue();
+	}
 
 
     public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
@@ -44,10 +54,14 @@ public class Task<T> implements Comparable<Task<T>>, Callable<T> {
 
     @Override
     public int compareTo(Task task) {
-        return task.type.compareTo(this.type);
+        return Integer.compare(this.getTypePrirory(),task.getTypePrirory());
     }
 
     public T call() throws Exception {
         return this.method.call();
     }
+
+	public String getTaskName() {
+		return taskName;
+	}
 }
