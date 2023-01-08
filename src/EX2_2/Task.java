@@ -1,67 +1,33 @@
 package EX2_2;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
 
-public class Task<T> implements Comparable<Task<T>>, Callable<T> {
-    private Future<T> future;
-    private Callable<T> method;
-    private TaskType type;
+public class Task<T> extends CustomExecutor implements Callable<T> {
+	private Callable<T> callable;
+	private final TaskType taskType;
 
-	static int taskNum = 0 ;
+	public Task(Callable<T> callable, TaskType type) {
+		this.callable = callable;
+		this.taskType = type;
+	}
 
-	private String taskName = null ;
-
-    public Task(Callable<T> task, TaskType taskType) {
-        this.method = task;
-        this.type = taskType;
-		this.taskName = "Task - " + taskNum++ ;
-
-    }
-
-    public Task(Callable<T> task) {
-        this.method = task;
-        this.type = TaskType.OTHER;
-		this.taskName = "Task - " + taskNum++ ;
-    }
-
-    public T get() throws InterruptedException, ExecutionException {
-        return (T) future.get();
-    }
-
-    public void setFuture(Future<T> future) {
-        this.future = future;
-    }
-
-    public TaskType getType() {
-        return type;
-    }
-	public int getTypePrirory() {
-		return type.getPriorityValue();
+	public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
+		return new Task<T>(task, taskType);
 	}
 
 
-    public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
-        return new Task<T>(task, taskType);
-    }
-
-    public T get(long num, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
-        return (T) future.get(num, timeUnit);
-    }
-
-    public static <T> Task<T> createTask(Callable<T> task) {
-        return new Task<T>(task);
-    }
-
-    @Override
-    public int compareTo(Task task) {
-        return Integer.compare(this.getTypePrirory(),task.getTypePrirory());
-    }
-
-    public T call() throws Exception {
-        return this.method.call();
-    }
-
-	public String getTaskName() {
-		return taskName;
+	public static <T> Task<T> createTask(Callable<T> task) {
+		return new Task<T>(task, TaskType.OTHER);
 	}
+
+	@Override
+	public T call() throws Exception {
+		return this.callable.call();
+	}
+
+	public int getType() {
+		return taskType.getPriorityValue();
+	}
+
+
 }
