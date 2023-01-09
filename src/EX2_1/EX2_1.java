@@ -5,6 +5,11 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 public class EX2_1 {
+
+	/**
+	 * Compares the run times of the different methods for counting the number of lines in multiple text files.
+	 *
+	 */
     public static void main(String[] args) {
         long start, end;
         int numberOfFiles = 1000;
@@ -63,12 +68,16 @@ public class EX2_1 {
                 throw new RuntimeException(e);
             }
 
-
         }
         return filesNames;
     }
 
-    // without threads
+	/**
+	*
+	 * @param fileNames the names of the files
+	 * @return the sum of lines in all the txt files
+	 */
+
     public static int getNumOfLines(String[] fileNames) {
         int numOfLines = 0;
         for (String fileName : fileNames) {
@@ -87,7 +96,10 @@ public class EX2_1 {
 
     }
 
-    // threadpool
+	/**
+	 * @param fileNames the names of the files
+	 * @return the sum of lines in all the txt files using a thread pool of the size of fileNames.length.
+	 */
     public static int getNumOfLinesThreadPool(String[] fileNames) {
         int numLines = 0;
         // Create a fixed-size thread pool with a thread for each file
@@ -119,7 +131,10 @@ public class EX2_1 {
         return numLines;
     }
 
-    // threads
+	/**
+	 * @param filesNames the names of the files
+	 * @return the sum of lines in all the txt files using a separate thread for each file.
+	 */
     public static int getNumOfLinesThreads(String[] filesNames) {
         int length = filesNames.length;
         int numOfLines = 0;
@@ -141,7 +156,3 @@ public class EX2_1 {
 
 
 }
-
-
-
-

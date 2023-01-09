@@ -7,15 +7,25 @@ import java.io.IOException;
 public class numOfLinesThreads extends Thread {
 
     private int count = 0;
-    String name;
+    private String name;
+
+	/**
+	 *
+	 * @param name
+	 */
 
     public numOfLinesThreads(String name) {
         super(name);
         this.name = name;
     }
 
+	/**
+	 *
+	 */
+ @Override
     public void run() {
         try {
+			this.name= name;
             BufferedReader reader = new BufferedReader(new FileReader(name));
             while (reader.readLine() != null) {
                 count++;

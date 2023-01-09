@@ -9,9 +9,19 @@ import java.util.concurrent.Callable;
 public class numOfLinesThreadPool implements Callable<Integer> {
     private String name;
 
+	/**
+	 *
+	 * @param name
+	 */
     public numOfLinesThreadPool(String name) {
         this.name = name;
     }
+
+	/**
+	 *
+	 * @return
+	 * @throws Exception
+	 */
 
     @Override
     public Integer call() throws Exception {
