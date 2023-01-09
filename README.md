@@ -14,9 +14,19 @@ clone this repository
 ```sh
 https://github.com/orel-dayan/OOP-TASK2.git
 ```
-## About the project:
+### Ex2_1
+Run the main function and choose the number of files and max number of lines in the file in terminal.                                                               
+To delete files you may use the next commands.
+```sh
+   cd <repository folder>/src
+   rm file*
+   ```
+### Ex2_2
+You can see and run the example in the Tests class.
+
+## PART A:
 This project provides a set of utility functions for working with text files. we create text files and calculate the total number of lines in these files.  
-#### We will use three methods: ####  
+### We will use three methods: ####  
 
 • Normal method without the use of threads
 
@@ -24,7 +34,7 @@ This project provides a set of utility functions for working with text files. we
 
 • Using ThreadPool
 
-## Part A:
+
 
 ### EX2_1:
 A class that contains 4 functions:
@@ -64,19 +74,18 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 - The number of lines using Threads with The time is took.
 - The number of lines using ThreadPool with The time is took.
 
+### Conclusions
+In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
-## question 5 in part A:
-### Compare between Running times of the methods:z
 
-<img width="651" alt="image" src="https://user-images.githubusercontent.com/117677549/210896206-31bfb3e1-fde2-419d-b48f-9f9c7e0ec7cf.png">
-<img width="548" alt="image" src="https://user-images.githubusercontent.com/117677549/210897723-e1eb67a9-929e-4852-83b6-accdc861452f.png">
+### Conclusions
+In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
-### Conclusions from the compare:
-- We need to fill it tomorrow
 
-## question 6 in part A:
+
+
 ## UML
 ![image](https://user-images.githubusercontent.com/117816462/210965665-a864cb80-8162-43d9-930d-958d9d7a470d.png)
 
 
-## Part B:
+# Part B:
