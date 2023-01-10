@@ -183,6 +183,10 @@ validatePriority method which check if the priority passed is valid or not.
 ### Task
 This is a class called `Task` that implements the `Comparable` interface and the `Callable` interface. `Task` class is a generic class, as it uses the T generic type. It has two fields, taskType of type `TaskType` and callable of type `Callable<T>`. This callable field allows the class to store an instance of a `Callable` task and execute it later. The `Task` class has two constructors, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` The class also defines two static methods `createTask`, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` Both of them create a new instance of `Task<T>` and return it.
 
+### Factory design patrren:
+In order for us to want a method that will hold an object from one of several options when all the objects have some common denominator. Usually we used that design patrren when we dont know what the function we need. its also a way to hide the sub classes and the sub constructors.
+In our project we used this design patrren in the function of `createTask` so that there will be no access to the constructor.
+
 It has also the following methods:
 - `getCallable` : which return the callable field
 - `getType` : which returns the priority value of the taskType
@@ -194,7 +198,11 @@ It has also the following methods:
 ### MyFuture:
 `MyFuture` is extending the `FutureTask<V>` which is a concrete implementation of the `Future<V>` interface. It is also implementing the `Comparable` interface.
 The `MyFuture` class has one field priority that represents an integer value. It has a constructor that takes a `Callable<V>` and an int parameter and pass the `Callable<V>` to the constructor of the `FutureTask<V>` super class and assigns the int parameter to the priority field. The class has a method `compareTo(MyFuture o)` which is implementation of the compareTo method of the `Comparable` interface, it compares the priority of two `MyFuture` objects, and it's used to sort the collection of `MyFuture` objects based on their priority. It also has `getPriority` method which return the current priority. This class is designed to handle future asynchronous tasks with priorities. The `MyFuture` class adds a new feature to `FutureTask` which is the ability to assign a priority to the task. This class by extending the `FutureTask` class which already provides the functionality to run a task asynchronously, it adds the ability to prioritize tasks, which can be useful in situations where some tasks need to be executed before others.
-   
+
+### Adapter Design Pattern:
+Allows classes to work together even though they have incompatible interfaces. In the class FutureTask we have 2 interfaces: `Callable` and `Runnable`, Since we were only asked to implement Callable beacuse of that we used Adapter design pattren And we created a kind of "correlation" between them his name is `MyFuture`.
+`MyFuture` extends only the method of `Callable` from `FutureTask`.
+
 ### CostomExecutor:
 The class is implemetation of the `ThreadPoolExecutor` class called `CustomExecutor`. `CustomExecutor` uses a `PriorityBlockingQueue` to hold the MyFuture tasks, this queue is able to hold a collection of tasks and orders them based on the priority of each task. It also keeps track of the number of tasks for each priority using an array priorityCounts.
 
