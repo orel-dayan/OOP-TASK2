@@ -209,3 +209,6 @@ It also has two methods:
 `getCurrentMax()` which returns the current maximum priority count. `gracefullyTerminate()` which calls the `shutdown()` method of the `ThreadPoolExecutor` to terminate the thread pool. It also overrides the beforeExecute method to decrement the priority count of the task before it is executed. This `CustomExecutor` allows to schedule and execute the tasks according to the priority assigned to them and it also allows tracking the number of tasks for each priority
 
 ## UML Part B:
+![image](https://user-images.githubusercontent.com/117816462/211599802-3570c909-3f13-4a4f-87e2-83fb6f5b6e94.png)
+
+
