@@ -77,7 +77,66 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 ### Conclusions
 In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
+<table>
+  <tr>
+    <th>Method</th>
+    <th> Time (ms)</th>
+    <th>Seed, Bound</th>
+    <th>Number of Files</th>
+    <th>Total Num of Lines</th>
+  </tr>
+  <tr>
+    <td>getNumOfLines</td>
+    <td></td>
+    <td>2, 1001 </td>
+    <td>1000</td>
+    <td></td>
+  </tr>
+    <td>getNumOfLinesThreads</td>
+    <td></td>
+    <td>2, 1001 </td>
+    <td>1000</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>getNumOfLinesThreadPool</td>
+    <td></td>
+    <td>2, 1001 </td>
+    <td>1000</td>
+    <td></td>
+  </tr>
+</table>
 
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th> Time (ms)</th>
+    <th>Seed, Bound</th>
+    <th>Number of Files</th>
+    <th>Total Number of Lines</th>
+  </tr>
+  <tr>
+    <td>getNumOfLines</td>
+    <td></td>
+    <td>2, 999</td>
+    <td>1000</td>
+    <td></td>
+  </tr>
+    <td>getNumOfLinesThreads</td>
+    <td></td>
+    <td>2, 999 </td>
+    <td>1000</td>
+    <td></td>
+
+  <tr>
+    <td>getNumOfLinesThreadPool</td>
+    <td></td>
+    <td>2, 999 </td>
+    <td>1000</td>
+    <td></td>
+  </tr>
+</table>
 
 
 
