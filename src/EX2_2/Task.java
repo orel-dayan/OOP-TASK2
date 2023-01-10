@@ -2,32 +2,32 @@ package EX2_2;
 
 import java.util.concurrent.Callable;
 
-public class Task<T> implements Callable<T> {
+public class Task<V> implements Callable<V> {
 	TaskType taskType;
-	Callable<T> callable;
+	Callable<V> callable;
 
-	private Task(Callable<T> callable)
+	private Task(Callable<V> callable)
 	{
 		this.callable = callable;
 		taskType = TaskType.OTHER;
 	}
 
-	private Task(Callable<T> callable , TaskType type)
+	private Task(Callable<V> callable , TaskType type)
 	{
 		this.callable = callable;
 		this.taskType = type;
 	}
 
 	@Override
-	public T call() throws Exception {
+	public V call() throws Exception {
 		return this.callable.call();
 	}
-	public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
-		return new Task<T> (task, taskType); // use the constructor
+	public static  Task createTask(Callable task, TaskType taskType) {
+		return new Task(task, taskType); // use the constructor
 	}
 
-	public static <T> Task<T> createTask(Callable<T> task) {
-		return new Task<T>(task);
+	public static  Task createTask(Callable task) {
+		return new Task(task);
 	}
 	public String toString(){
 

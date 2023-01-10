@@ -4,10 +4,10 @@ import java.util.Comparator;
 import java.util.concurrent.*;
 
 
-public class CustomExecutor<T> extends ThreadPoolExecutor {
+public class CustomExecutor extends ThreadPoolExecutor {
 
-	public static final int MIN_PRIORITY = 11;
-	public static final int MIN= 10;
+
+	public static final int MIN_PRIORITY= 10;
 	int [] priorityCounts = new int[MIN_PRIORITY];
 
 	private static final int numOfCores = Runtime.getRuntime().availableProcessors();
@@ -21,37 +21,39 @@ public class CustomExecutor<T> extends ThreadPoolExecutor {
 	}
 
 	@Override
-	protected <V> RunnableFuture newTaskFor( Callable<V> callable)
+	protected <V>  RunnableFuture  <V> newTaskFor( Callable<V> callable)
 	{
 		return new MyFuture<>(callable);
 	}
-	public Future<T> submit(Task task)
+	public <V> Future<V> submit(Task <V> task)
 	{
 		priorityCounts[task.taskType.getPriorityValue()]++;
-		return super.submit((Callable<T>) task);
+		return super.submit((Callable<V>) task);
 	}
-	public Future<T> submit (Callable task, TaskType taskType)
+	public <V> Future<V> submit (Callable <V> task, TaskType taskType)
 	{
-		Callable task1 = Task.createTask(task, taskType);
-		return submit((Task)task1);
+		Callable<V> t = Task.createTask(task, taskType);
+		return submit((Task)t);
 	}
 
-	public Future<T> submit (Callable task)
+	public <V> Future<V> submit (Callable<V> task)
 	{
-		Callable t = Task.createTask(task);
+		Callable <V> t = Task.createTask(task);
 		return submit((Task)t);
 	}
 
 	public int getCurrentMax()
 	{
-		int currentMax = 0;
-		for (int i = MIN; i >= 0; i--)
+
+		for (int i = 9; i >= 0; i--)
 		{
 			if (priorityCounts[i] > 0)
 			{
-				return (currentMax = i);
+				return i;
 			}
+
 		}
+		System.out.println("there is no task in queue");
 		return 0;
 	}
 
@@ -65,13 +67,18 @@ public class CustomExecutor<T> extends ThreadPoolExecutor {
 			e.printStackTrace();
 		}
 	}
-
 	@Override
 	protected void beforeExecute(Thread t, Runnable r)
 	{
-		MyFuture<T> future = (MyFuture<T>) (r);
+		MyFuture future = (MyFuture) (r);
 		priorityCounts[future.getPriority()]--;
 	}
+	public BlockingQueue<Runnable> getQueuePriority() {
+		return super.getQueue();
+	}
+
+
+
 
 
 }
