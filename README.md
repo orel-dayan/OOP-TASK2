@@ -153,3 +153,40 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 
 # Part B:
+Creating a new type that provides an asynchronous task with priority, we created a new ThreadPool type that supports tasks with
+priority.
+
+### ThreadPoolExecutor
+`ThreadPoolExecutor` is a class that allows you to create and manage a pool of threads. It's part of the Java concurrency package (`java.util.concurrent`), and it provides an efficient way to run multiple tasks concurrently by reusing a fixed number of threads.
+The `ThreadPoolExecutor` class provides several methods for submitting tasks to the pool, such as `submit()`, `execute()`, and `invokeAll()`. You can also use the factory methods in the `Executors` class to create different types of thread pools.
+ThreadPoolExecutor class allows you to configure several aspects of the thread pool such as core pool size, maximum pool size, thread keep-alive time, etc.
+
+###AbstractExecutorService
+`AbstractExecutorService` is an abstract class that provides a base implementation for the `ExecutorService` interface in Java. It's also part of the Java concurrency package (`java.util.concurrent`). The `ExecutorService` interface provides a way to execute tasks concurrently using a pool of threads, and `AbstractExecutorService` is a convenience class that implements some common functionality for this interface.
+AbstractExecutorService provides a basic implementation for the lifecycle methods of ExecutorService such as shutdown(), shutdownNow(), and isShutdown() and isTerminated().I
+
+`ThreadPoolExecutor` class extends the `AbstractExecutorService` class to provide an actual implementation of thread pool executor service
+
+###Callacle:
+`Callable` is an interface in the Java concurrency package (`java.util.concurrent`) that defines a single method, `call()`, which is similar to the `run()` method of the `Runnable` interface, but it can return a value and throw a checked exception. A `Callable` task can be submitted to an `ExecutorService` using the `submit()` method, which returns a `Future` object that can be used to check the status of the task and retrieve its result. 
+
+###Comparable
+The `Comparable` interface is a functional interface in Java that defines a single method `compareTo(T o)`. The purpose of this interface is to define a natural ordering for objects of a certain class. Classes that implement this interface are called "comparable".
+
+## Classes:
+### TaskType
+enum `TaskType` represents different types of tasks. The enum in this class has 3 constant values `COMPUTATIONAL`, `IO` and `OTHER`. And also it has following field and methods: `typePriority` which represents an integer value that ranges from 1 to 10, and it is used to store the priority of the task type.constructor with int  parameter which takes an integer value and assigns it to `typePriority` and validate if the value is valid using validatePriority method `setPriority` method which set the new priority to `typePriority` if the passed value is valid `getPriorityValue`what the meaning o method which return the current priority value getType method which return the current type
+validatePriority method which check if the priority passed is valid or not.
+
+###Task
+This is a class called Task that implements the Comparable interface and the Callable interface. Task class is a generic class, as it uses the T generic type. It has two fields, taskType of type TaskType and callable of type Callable<T>. This callable field allows the class to store an instance of a Callable task and execute it later. The Task class has two constructors, one of them takes two parameters Callable<T> and TaskType, the other takes one parameter Callable<T> and will set the TaskType to OTHER.The class also defines two static methods createTask, one of them takes two parameters Callable<T> and TaskType, the other takes one parameter Callable<T> and will set the TaskType to OTHER. Both of them create a new instance of Task<T> and return it.
+
+It has also the following methods:
+- getCallable : which return the callable field
+- getType : which returns the priority value of the taskType
+- toString : which returns a string representation of the Task object
+- compareTo: which compares the priority of two tasks
+- call: which is the implementation of the Callable<T> interface, it will call the call method of the callable field and returns the result.
+- This class represents a wrapper around a Callable
+
+
