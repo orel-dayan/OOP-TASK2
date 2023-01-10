@@ -75,8 +75,9 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 - The number of lines using ThreadPool with The time is took.
 
 ### Conclusions
-In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
-
+ Using a `thread pool` is a good choice for concurrent processing when you have a big number of tasks to be processed.
+ It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
+ 
 <table>
   <tr>
     <th>Method</th>
@@ -87,25 +88,28 @@ In general, using a thread pool is a good choice for concurrent processing when 
   </tr>
   <tr>
     <td>getNumOfLines</td>
-    <td></td>
+    <td> 5675</td>
     <td>2, 1001 </td>
     <td>1000</td>
-    <td></td>
+    <td> 515033 </td>
   </tr>
     <td>getNumOfLinesThreads</td>
-    <td></td>
+    <td>193</td>
     <td>2, 1001 </td>
     <td>1000</td>
-    <td></td>
+    <td> 515033 </td>
   </tr>
   <tr>
     <td>getNumOfLinesThreadPool</td>
-    <td></td>
+    <td>149 </td>
     <td>2, 1001 </td>
     <td>1000</td>
-    <td></td>
+    <td>515033</td>
   </tr>
 </table>
+
+
+![img.png](img.png)
 
 
 <table>
@@ -118,25 +122,28 @@ In general, using a thread pool is a good choice for concurrent processing when 
   </tr>
   <tr>
     <td>getNumOfLines</td>
-    <td></td>
+    <td> 6524 </td>
     <td>2, 999</td>
     <td>1000</td>
-    <td></td>
+    <td>498479 </td>
   </tr>
     <td>getNumOfLinesThreads</td>
-    <td></td>
+    <td> 112</td>
     <td>2, 999 </td>
     <td>1000</td>
-    <td></td>
+    <td> 498479 </td>
 
   <tr>
     <td>getNumOfLinesThreadPool</td>
-    <td></td>
+    <td>227</td>
     <td>2, 999 </td>
     <td>1000</td>
-    <td></td>
+    <td> 498479 </td>
   </tr>
 </table>
+
+
+![img_1.png](img_1.png)
 
 
 

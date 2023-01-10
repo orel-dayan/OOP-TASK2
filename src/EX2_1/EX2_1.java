@@ -13,7 +13,7 @@ public class EX2_1 {
     public static void main(String[] args) {
         long start, end;
         int numberOfFiles = 1000;
-        int maxNumberOfLines = 999;
+        int maxNumberOfLines = 1001;
         String[] fileNames = createTextFiles(numberOfFiles, 2, maxNumberOfLines);
         System.out.println("Checking " + numberOfFiles + " files with " + maxNumberOfLines + " maximum lines each:");
         System.out.println("---------------------------------------------------------");
@@ -120,8 +120,9 @@ public class EX2_1 {
             e.printStackTrace();
 
         }
-        // wait for all
+		// Shut down the thread pool
         executor.shutdown();
+		// Wait for all the tasks to complete
         try {
             executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {

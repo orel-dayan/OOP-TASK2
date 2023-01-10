@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ A class that implements a thread for counting the number of lines in a text file.
+ */
 public class numOfLinesThreads extends Thread {
 
     private int count = 0;
@@ -11,7 +14,7 @@ public class numOfLinesThreads extends Thread {
 
 	/**
 	 *
-	 * @param name
+	 * @param name the name of the file
 	 */
 
     public numOfLinesThreads(String name) {
@@ -19,9 +22,7 @@ public class numOfLinesThreads extends Thread {
         this.name = name;
     }
 
-	/**
-	 *
-	 */
+
  @Override
     public void run() {
         try {

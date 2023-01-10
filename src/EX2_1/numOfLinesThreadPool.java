@@ -5,13 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+/**
+ A class that implements a Callable for counting the number of lines in a text file.
+ */
 
 public class numOfLinesThreadPool implements Callable<Integer> {
     private String name;
 
 	/**
-	 *
-	 * @param name
+	 * Constructor
+	 * @param name the name of the file
 	 */
     public numOfLinesThreadPool(String name) {
         this.name = name;
@@ -19,8 +22,8 @@ public class numOfLinesThreadPool implements Callable<Integer> {
 
 	/**
 	 *
-	 * @return
-	 * @throws Exception
+	 * @return  the number of lines in the file
+	 * @throws Exception if the file is not found
 	 */
 
     @Override
