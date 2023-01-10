@@ -17,7 +17,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
 	public <T>MyFuture <T> Mysubmit(Task t) {
 		if (t == null) throw new NullPointerException();
-		MyFuture <T> futuretask = new MyFuture(t.getCallable(),t.getType());
+		MyFuture <T> futuretask = new MyFuture(t.getCallable());
 		execute(futuretask);
 		return futuretask;
 	}

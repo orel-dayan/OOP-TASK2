@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 
 public class Task<T> implements Comparable<Task<T>>, Callable<T> {
 
-	private final TaskType taskType;
+	final TaskType taskType;
 	private Callable <T> callable;
 
 	public Task (Callable<T> callable, TaskType taskType) {
