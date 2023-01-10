@@ -21,13 +21,13 @@ public class MyFuture <T> extends FutureTask<T>  implements Comparable<MyFuture>
 
 	public int getPriority()
 	{
-		return (((Task<T>)callable)).taskType.getPriorityValue();
+		return (((Task<?>)callable)).taskType.getPriorityValue();
 	}
 	@Override
 	public int compareTo(MyFuture o)
 	{
-		return Integer.compare(((Task<T>) (this.callable)).taskType.getPriorityValue(),
-			((Task<T>) (o.getCallable())).taskType.getPriorityValue());
+		return Integer.compare(((Task<?>) (this.callable)).taskType.getPriorityValue(),
+			((Task<?>) (o.getCallable())).taskType.getPriorityValue());
 
 	}
 }

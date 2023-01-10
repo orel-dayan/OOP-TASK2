@@ -5,22 +5,22 @@ import java.util.concurrent.*;
 
 
 public class CustomExecutor<T> extends ThreadPoolExecutor {
-	int[] priorityCounts = new int[11];
+
+	public static final int MIN_PRIORITY =11;
+	int [] priorityCounts = new int[MIN_PRIORITY];
 	public CustomExecutor()
 	{
 		super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1,
-			300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>(11,
+			300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>(Runtime.getRuntime().availableProcessors() / 2,
 				Comparator.comparing(runnable-> ((MyFuture) runnable))));
 	}
-
-
 
 	@Override
 	protected <T> RunnableFuture newTaskFor( Callable<T> callable)
 	{
 		return new MyFuture<T>(callable);
 	}
-	public Future<T> submit (Task task)
+	public Future<T> submit(Task task)
 	{
 		priorityCounts[task.taskType.getPriorityValue()]++;
 		return super.submit((Callable<T>) task);
