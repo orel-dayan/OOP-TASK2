@@ -109,7 +109,8 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 </table>
 
 
-![img.png](img.png)
+![image](https://user-images.githubusercontent.com/117816462/211564763-a9d108b3-f6a5-45f3-9c5b-ed8f3d50de8a.png)
+
 
 
 <table>
@@ -143,7 +144,8 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 </table>
 
 
-![img_1.png](img_1.png)
+![image](https://user-images.githubusercontent.com/117816462/211564623-3842b1cc-4b07-45ee-b916-2d47a406b1e8.png)
+
 
 
 
