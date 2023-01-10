@@ -78,8 +78,6 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
 
-### Conclusions
-In general, using a thread pool is a good choice for concurrent processing when you have a large number of tasks to be processed. It allows you to take advantage of concurrent processing while minimizing the overhead of managing multiple threads. However, for small numbers of tasks, the overhead of creating a thread pool may outweigh the benefits of concurrent processing. In such cases, using separate threads or processing the tasks sequentially may be more efficient.
 
 
 
