@@ -148,7 +148,7 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 
 
-## UML
+## UML Part A:
 ![image](https://user-images.githubusercontent.com/117816462/210965665-a864cb80-8162-43d9-930d-958d9d7a470d.png)
 
 
@@ -167,10 +167,10 @@ AbstractExecutorService provides a basic implementation for the lifecycle method
 
 `ThreadPoolExecutor` class extends the `AbstractExecutorService` class to provide an actual implementation of thread pool executor service
 
-###Callacle:
+### Callacle:
 `Callable` is an interface in the Java concurrency package (`java.util.concurrent`) that defines a single method, `call()`, which is similar to the `run()` method of the `Runnable` interface, but it can return a value and throw a checked exception. A `Callable` task can be submitted to an `ExecutorService` using the `submit()` method, which returns a `Future` object that can be used to check the status of the task and retrieve its result. 
 
-###Comparable
+### Comparable
 The `Comparable` interface is a functional interface in Java that defines a single method `compareTo(T o)`. The purpose of this interface is to define a natural ordering for objects of a certain class. Classes that implement this interface are called "comparable".
 
 ## Classes:
@@ -178,15 +178,32 @@ The `Comparable` interface is a functional interface in Java that defines a sing
 enum `TaskType` represents different types of tasks. The enum in this class has 3 constant values `COMPUTATIONAL`, `IO` and `OTHER`. And also it has following field and methods: `typePriority` which represents an integer value that ranges from 1 to 10, and it is used to store the priority of the task type.constructor with int  parameter which takes an integer value and assigns it to `typePriority` and validate if the value is valid using validatePriority method `setPriority` method which set the new priority to `typePriority` if the passed value is valid `getPriorityValue`what the meaning o method which return the current priority value getType method which return the current type
 validatePriority method which check if the priority passed is valid or not.
 
-###Task
-This is a class called Task that implements the Comparable interface and the Callable interface. Task class is a generic class, as it uses the T generic type. It has two fields, taskType of type TaskType and callable of type Callable<T>. This callable field allows the class to store an instance of a Callable task and execute it later. The Task class has two constructors, one of them takes two parameters Callable<T> and TaskType, the other takes one parameter Callable<T> and will set the TaskType to OTHER.The class also defines two static methods createTask, one of them takes two parameters Callable<T> and TaskType, the other takes one parameter Callable<T> and will set the TaskType to OTHER. Both of them create a new instance of Task<T> and return it.
+### Task
+This is a class called `Task` that implements the `Comparable` interface and the `Callable` interface. `Task` class is a generic class, as it uses the T generic type. It has two fields, taskType of type `TaskType` and callable of type `Callable<T>`. This callable field allows the class to store an instance of a `Callable` task and execute it later. The `Task` class has two constructors, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` The class also defines two static methods `createTask`, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` Both of them create a new instance of `Task<T>` and return it.
 
 It has also the following methods:
-- getCallable : which return the callable field
-- getType : which returns the priority value of the taskType
-- toString : which returns a string representation of the Task object
-- compareTo: which compares the priority of two tasks
-- call: which is the implementation of the Callable<T> interface, it will call the call method of the callable field and returns the result.
+- `getCallable` : which return the callable field
+- `getType` : which returns the priority value of the taskType
+- `toString` : which returns a string representation of the Task object
+- `compareTo`: which compares the priority of two tasks
+- `call`: which is the implementation of the Callable<T> interface, it will call the call method of the callable field and returns the result.
 - This class represents a wrapper around a Callable
 
+### MyFuture:
+`MyFuture` is extending the `FutureTask<V>` which is a concrete implementation of the `Future<V>` interface. It is also implementing the `Comparable` interface.
+The `MyFuture` class has one field priority that represents an integer value. It has a constructor that takes a `Callable<V>` and an int parameter and pass the `Callable<V>` to the constructor of the `FutureTask<V>` super class and assigns the int parameter to the priority field. The class has a method `compareTo(MyFuture o)` which is implementation of the compareTo method of the `Comparable` interface, it compares the priority of two `MyFuture` objects, and it's used to sort the collection of `MyFuture` objects based on their priority. It also has `getPriority` method which return the current priority. This class is designed to handle future asynchronous tasks with priorities. The `MyFuture` class adds a new feature to `FutureTask` which is the ability to assign a priority to the task. This class by extending the `FutureTask` class which already provides the functionality to run a task asynchronously, it adds the ability to prioritize tasks, which can be useful in situations where some tasks need to be executed before others.
+   
+### CostomExecutor:
+The class is implemetation of the `ThreadPoolExecutor` class called `CustomExecutor`. `CustomExecutor` uses a `PriorityBlockingQueue` to hold the MyFuture tasks, this queue is able to hold a collection of tasks and orders them based on the priority of each task. It also keeps track of the number of tasks for each priority using an array priorityCounts.
 
+The class has four constructors:
+A default constructor that creates a new thread pool with the number of available processors in the system and a default `PriorityBlockingQueue` and defines some properties such as core pool size, maximum pool size and keep-alive time. It overrides the newTaskFor method from `ThreadPoolExecutor` to return a `MyFuture` object for a new task, this method is used to create new instances of `MyFuture` for the `ThreadPoolExecutor` to use when a new task is submitted.
+It also has three methods that are used to submit a task to the thread pool:
+- `submit(Task task)`: which is used to submit a Task object to the thread pool and increments the priority count
+- `submit (Callable task, TaskType taskType)`: which is used to submit a Callable task with a TaskType object to the thread pool
+- `submit (Callable task)`: which is used to submit a Callable task with TaskType object is set to OTHER
+It also has two methods:
+
+`getCurrentMax()` which returns the current maximum priority count. `gracefullyTerminate()` which calls the `shutdown()` method of the `ThreadPoolExecutor` to terminate the thread pool. It also overrides the beforeExecute method to decrement the priority count of the task before it is executed. This `CustomExecutor` allows to schedule and execute the tasks according to the priority assigned to them and it also allows tracking the number of tasks for each priority
+
+## UML Part B:
