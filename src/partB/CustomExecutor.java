@@ -1,6 +1,5 @@
-package EX2_;
+package partB;
 
-import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -13,6 +12,10 @@ public class CustomExecutor<T> {
 
 	private static final int numOfCores = Runtime.getRuntime().availableProcessors();
 
+	/**
+
+	 Constructor for CustomExecutor class that initializes the ThreadPoolExecutor
+	 */
 
 	public CustomExecutor()
 	{
@@ -22,18 +25,17 @@ public class CustomExecutor<T> {
 	}
 
 	/**
-	 * this function submits a task into the threadpool, and updates the maxPriority parameter
-	 * @param task - the Task to submit
-	 * @return - the Future that gets the value that will be returned from the call method in the
-	 * Task
+	* This function submits a task into the threadpool, and updates the maxPriority parameter
+	* @param task - the Task to submit
+	* @return - the Future that gets the value that will be returned from the call method in the Task
 	 */
 	public Future<T> submit(Task <Object> task)
 	{
 		Future<T> future = (Future<T>) executor.submit(task);
 
-		if ((executor.getQueue().peek())==null) {//if the queue is null
+		if ((executor.getQueue().peek())==null) {
 			maxPriority = task.getType().getPriorityValue();
-		}else if((executor.getQueue().peek()) instanceof Task)//if the queue isn't null - (threadPool.getQueue().peek()) instanceof Task
+		}else if((executor.getQueue().peek()) instanceof Task)
 		{
 
 			maxPriority = ((Task<?>)executor.getQueue().peek()).getType().getPriorityValue();
@@ -53,7 +55,10 @@ public class CustomExecutor<T> {
 		return future;
 	}*/
 
-
+	/**
+	* Returns the maximum priority of the tasks currently in the queue
+	* @return - the maximum priority of the tasks currently in the queue
+	 */
 	public int getCurrentMax()
 	{
 		return this.maxPriority;

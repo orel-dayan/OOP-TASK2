@@ -1,4 +1,4 @@
-package EX2_;
+package partB;
 
 import java.util.concurrent.Callable;
 
@@ -13,7 +13,7 @@ public class Task <T> implements Callable<Object> {
 	 * @param type the type of the task
 	 */
 
-	public Task(Callable<Object> callable, TaskType type) {
+	private Task(Callable<Object> callable, TaskType type) {
 		this.callable = callable;
 		this.type = type;
 	}
@@ -22,7 +22,7 @@ public class Task <T> implements Callable<Object> {
 	 * Constructor
 	 * @param callable the task to execute
 	 */
-	public Task(Callable<Object> callable) {
+	private Task(Callable<Object> callable) {
 		this.callable = callable;
 		this.type = TaskType.OTHER;
 	}
