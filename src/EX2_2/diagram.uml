@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="369.0" y="-44.5">EX2_2.Task</node>
+    <node x="225.0" y="-132.0">EX2_2.CustomExecutor</node>
+    <node x="186.5" y="51.5">EX2_2.TaskType</node>
+    <node x="-35.0" y="-51.0">EX2_2.MyFuture</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="EX2_2.Task" target="EX2_2.TaskType" relationship="TO_ONE">
+      <point x="-53.0" y="0.0" />
+      <point x="241.0" y="-30.0" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="EX2_2.CustomExecutor" target="EX2_2.MyFuture" relationship="CREATE">
+      <point x="-91.0" y="0.0" />
+      <point x="35.0" y="-117.5" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="true" x="362.0" y="-41.0" />
+  <SelectedNodes>
+    <node>EX2_2.TaskType</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
