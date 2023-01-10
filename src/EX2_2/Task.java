@@ -25,7 +25,14 @@ public class Task<T> implements Callable<T> {
 	public static <T> Task<T> createTask(Callable<T> task, TaskType taskType) {
 		return new Task<T> (task, taskType); // use the constructor
 	}
+
 	public static <T> Task<T> createTask(Callable<T> task) {
-		return new Task<T>(task, TaskType.OTHER);
+		return new Task<T>(task);
 	}
+	public String toString(){
+
+		return "(Priority of task is :"+ this.taskType.getPriorityValue()+")";
+	}
+
+
 }

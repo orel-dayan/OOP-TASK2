@@ -6,19 +6,24 @@ import java.util.concurrent.*;
 
 public class CustomExecutor<T> extends ThreadPoolExecutor {
 
-	public static final int MIN_PRIORITY =11;
+	public static final int MIN_PRIORITY = 11;
+	public static final int MIN= 10;
 	int [] priorityCounts = new int[MIN_PRIORITY];
+
+	private static final int numOfCores = Runtime.getRuntime().availableProcessors();
+
+
 	public CustomExecutor()
 	{
-		super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1,
-			300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>(Runtime.getRuntime().availableProcessors() / 2,
+		super(numOfCores/ 2, numOfCores - 1,
+			300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>(numOfCores/2,
 				Comparator.comparing(runnable-> ((MyFuture) runnable))));
 	}
 
 	@Override
-	protected <T> RunnableFuture newTaskFor( Callable<T> callable)
+	protected <V> RunnableFuture newTaskFor( Callable<V> callable)
 	{
-		return new MyFuture<T>(callable);
+		return new MyFuture<>(callable);
 	}
 	public Future<T> submit(Task task)
 	{
@@ -40,7 +45,7 @@ public class CustomExecutor<T> extends ThreadPoolExecutor {
 	public int getCurrentMax()
 	{
 		int currentMax = 0;
-		for (int i = 10; i >= 0; i--)
+		for (int i = MIN; i >= 0; i--)
 		{
 			if (priorityCounts[i] > 0)
 			{
@@ -51,12 +56,16 @@ public class CustomExecutor<T> extends ThreadPoolExecutor {
 	}
 
 
-
 	public void gracefullyTerminate()
 	{
 		super.shutdown();
-
+		try {
+			super.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
+
 	@Override
 	protected void beforeExecute(Thread t, Runnable r)
 	{
