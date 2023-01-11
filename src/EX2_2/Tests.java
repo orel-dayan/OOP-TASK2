@@ -47,7 +47,7 @@ public class Tests {
 		}
 
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException ignored) {
 		}
 		objects = customExecutor.getQueuePriority().toArray();
@@ -138,11 +138,6 @@ public class Tests {
 		assertEquals(2, task.taskType.getPriorityValue());
 
 	}
-
-
-
-
-
 
 
 

@@ -6,9 +6,9 @@ import java.util.concurrent.Callable;
  * This class is a generic task with a type that returns a result and may throw an exception.
  * Each task has a priority, which is an enum type based on the TaskType enum.
  */
-public class Task<T> implements Callable<T>, Comparable<Task> {
+public class Task<T> implements Callable<T>, Comparable<Task<T>> {
 	public TaskType taskType;
-	Callable<T> callable;
+	 Callable<T> callable;
 
 	/**
 	 * a constructor that sets up the Callable, and the taskType of the task automatically have "OTHER " priority
@@ -40,7 +40,7 @@ public class Task<T> implements Callable<T>, Comparable<Task> {
 	 * @param type      - the type of the task
 	 * @return Task object
 	 */
-	public static <T> Task createTask(Callable<T> callable, TaskType type) {
+	public static <T> Task <T> createTask(Callable<T> callable, TaskType type) {
 		return new Task<>(callable, type);
 	}
 
@@ -50,7 +50,7 @@ public class Task<T> implements Callable<T>, Comparable<Task> {
 	 * @param callable - the callable method
 	 * @return Task object with type OTHER
 	 */
-	public static <T> Task createTask(Callable<T> callable) {
+	public static <T> Task <T> createTask(Callable<T> callable) {
 		return new Task<>(callable);
 	}
 

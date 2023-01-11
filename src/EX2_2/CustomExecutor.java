@@ -24,7 +24,12 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	public CustomExecutor() {
 		super(numOfCores / 2, numOfCores - 1,
 			300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>(numOfCores / 2,
-				Comparator.comparing(runnable -> ((MyFuture) runnable))));
+				new Comparator<Runnable>() {
+				@Override
+				public int compare(Runnable o1, Runnable o2) {
+					return ((MyFuture<?>) o1).compareTo((MyFuture<?>) o2);
+				}
+			}));
 	}
 
 	/**
@@ -47,8 +52,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 */
 
 	public <T> Future<T> submit(Callable<T> call, TaskType taskType) {
-		Callable task1 = Task.createTask(call, taskType);
-		return submit((Task<T>) task1);
+		return this.submit(Task.createTask(call, taskType));
 	}
 
 	/**
@@ -60,8 +64,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
 
 	public <T> Future<T> submit(Callable<T> call) {
-		Callable task1 = Task.createTask(call);
-		return submit((Task<T>) task1);
+		return this.submit(Task.createTask(call));
 	}
 
 
@@ -100,7 +103,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
 	@Override
 	protected void beforeExecute(Thread t, Runnable r) {
-		MyFuture myFuture = (MyFuture) (r);
+		MyFuture<?> myFuture = (MyFuture<?>) (r);
 		priorityCounts[myFuture.getPriority()]--;
 	}
 
@@ -111,7 +114,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 * @return - the wrapped MyFuture object
 	 **/
 	@Override
-	protected <T> RunnableFuture newTaskFor(Callable<T> callable) {
+	protected <T> RunnableFuture <T> newTaskFor(Callable<T> callable) {
 		return new MyFuture<T>(callable);
 	}
 
