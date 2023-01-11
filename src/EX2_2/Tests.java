@@ -123,6 +123,23 @@ public class Tests {
 		customExecutor.gracefullyTerminate();
 	}
 
+	@Test
+	public void checkPriority() {
+		Task<Integer> task = Task.createTask(() -> {
+			int sum = 0;
+			for (int i = 1; i <= 10; i++) {
+				sum*=i;
+			}
+			return sum;
+		}, TaskType.COMPUTATIONAL);
+
+		assertEquals(1, task.taskType.getPriorityValue());
+		task.taskType.setPriority(2);
+		assertEquals(2, task.taskType.getPriorityValue());
+
+	}
+
+
 
 
 

@@ -169,7 +169,7 @@ AbstractExecutorService provides a basic implementation for the lifecycle method
 
 `ThreadPoolExecutor` class extends the `AbstractExecutorService` class to provide an actual implementation of thread pool executor service
 
-### Callacle:
+### Callable:
 `Callable` is an interface in the Java concurrency package (`java.util.concurrent`) that defines a single method, `call()`, which is similar to the `run()` method of the `Runnable` interface, but it can return a value and throw a checked exception. A `Callable` task can be submitted to an `ExecutorService` using the `submit()` method, which returns a `Future` object that can be used to check the status of the task and retrieve its result. 
 
 ### Comparable
@@ -203,7 +203,7 @@ The `MyFuture` class has one field priority that represents an integer value. It
 Allows classes to work together even though they have incompatible interfaces. In the class FutureTask we have 2 interfaces: `Callable` and `Runnable`, Since we were only asked to implement Callable beacuse of that we used Adapter design pattren And we created a kind of "correlation" between them his name is `MyFuture`.
 `MyFuture` extends only the method of `Callable` from `FutureTask`.
 
-### CostomExecutor:
+### CustomExecutor:
 The class is implemetation of the `ThreadPoolExecutor` class called `CustomExecutor`. `CustomExecutor` uses a `PriorityBlockingQueue` to hold the MyFuture tasks, this queue is able to hold a collection of tasks and orders them based on the priority of each task. It also keeps track of the number of tasks for each priority using an array priorityCounts.
 
 The class has four constructors:
