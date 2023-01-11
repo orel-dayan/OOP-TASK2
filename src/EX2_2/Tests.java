@@ -1,13 +1,66 @@
 package EX2_2;
 
+import org.junit.Test;
+
+import java.util.Optional;
+import java.util.concurrent.*;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
-import java.util.concurrent.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class Tests {
 	public static final Logger logger = LoggerFactory.getLogger(Tests.class);
 
-	@org.junit.jupiter.api.Test
+	@Test
+	public void Test(){
+		CustomExecutor customExecutor = new CustomExecutor();
+		Callable<String> callable1 = ()-> {
+			Thread.sleep(1000);
+			StringBuilder sb = new StringBuilder("HELLO");
+			return sb.reverse().toString();
+		};
+
+		Callable<Integer> callable2 = ()-> {
+			//simulating long task
+			Thread.sleep(1000);
+			int sum = 0;
+			for (int i = 4; i <= 12; i++) {
+				sum += i;
+			}
+			return sum;
+		};
+
+		Future<?>[] futures = new Future[30];
+		for (int i = 0; i < futures.length; i++) {
+			// Insert the less important tasks first and more important
+			if (i <= futures.length/2)
+				futures[i] = customExecutor.submit(callable1, TaskType.OTHER);
+			else
+				futures[i] = customExecutor.submit(callable2, TaskType.COMPUTATIONAL);
+		}
+		Object [] objects = customExecutor.getQueuePriority().toArray();
+		for (int i = 0; i < customExecutor.getQueuePriority().size(); i++) {
+			int end = i;
+			Object[] part1 = objects;
+			logger.info(()-> "the priority of " +end +" is : "+((MyFuture<?>) part1[end]).getPriority());
+		}
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException ignored) {
+		}
+		objects = customExecutor.getQueuePriority().toArray();
+		for (int i = 0; i < customExecutor.getQueuePriority().size(); i++) {
+			int end = i;
+			Object[] part2 = objects;
+			logger.info(()-> "the priority of "+end +" after sleep, has priority of" +
+				" "+((MyFuture<?>) part2[end]).getPriority());
+		}
+		customExecutor.gracefullyTerminate();
+	}
+
+	@Test
 	public void partialTest(){
 		CustomExecutor customExecutor = new CustomExecutor();
 
@@ -70,4 +123,12 @@ public class Tests {
 		customExecutor.gracefullyTerminate();
 	}
 
+
+
+
+
+
+
+
 }
+
