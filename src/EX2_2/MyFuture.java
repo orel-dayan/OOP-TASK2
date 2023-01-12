@@ -8,36 +8,26 @@ package EX2_2;
  * to be used as elements in the priority queue that is used by the thread pool.
  */
 
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-public class MyFuture<V> extends FutureTask<V> implements Comparable<MyFuture> {
+public class MyFuture<V> extends FutureTask<V> implements Comparable<MyFuture<V>> {
 
-	private final Task<V> task;
+	 final Task<V> task;
 
 
 	public MyFuture(Callable<V> callable) {
 		super(callable);
 		this.task = (Task<V>) callable;
 	}
-
-
-	public MyFuture(Task task) {
-		super(task);
-		this.task = task;
-	}
-
-	public Callable<V> getCallable() {
-		return this.task.callable;
-	}
-
 	/**
 	 * @return the priority of the task
 	 */
+
 	public int getPriority() {
-		return ((task).taskType.getPriorityValue());
+		return ((task).getTaskType().getPriorityValue());
 	}
+
 
 	/**
 	 * This method overrides the method from Comparable , we compare two objects of type "MyFuture" based
@@ -50,8 +40,8 @@ public class MyFuture<V> extends FutureTask<V> implements Comparable<MyFuture> {
 	@Override
 	public int compareTo(MyFuture other) {
 
-		return Integer.compare(task.taskType.getPriorityValue(),
-			other.task.taskType.getPriorityValue());
+		return Integer.compare(task.getTaskType().getPriorityValue(),
+			other.task.getTaskType().getPriorityValue());
 
 	}
 }

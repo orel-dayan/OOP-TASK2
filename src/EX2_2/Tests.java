@@ -133,9 +133,9 @@ public class Tests {
 			return sum;
 		}, TaskType.COMPUTATIONAL);
 
-		assertEquals(1, task.taskType.getPriorityValue());
-		task.taskType.setPriority(2);
-		assertEquals(2, task.taskType.getPriorityValue());
+		assertEquals(1, task.getTaskType().getPriorityValue());
+		task.getTaskType().setPriority(2);
+		assertEquals(2, task.getTaskType().getPriorityValue());
 
 	}
 

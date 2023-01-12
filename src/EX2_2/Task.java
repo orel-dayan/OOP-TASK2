@@ -7,8 +7,8 @@ import java.util.concurrent.Callable;
  * Each task has a priority, which is an enum type based on the TaskType enum.
  */
 public class Task<T> implements Callable<T>, Comparable<Task<T>> {
-	public TaskType taskType;
-	 Callable<T> callable;
+	private final TaskType taskType;
+	private final Callable<T> callable;
 
 	/**
 	 * a constructor that sets up the Callable, and the taskType of the task automatically have "OTHER " priority
@@ -18,7 +18,7 @@ public class Task<T> implements Callable<T>, Comparable<Task<T>> {
 
 	private Task(Callable<T> callable) {
 		this.callable = callable;
-		this.taskType = taskType.OTHER;
+		this.taskType = TaskType.OTHER;
 	}
 
 	/**
@@ -94,5 +94,11 @@ public class Task<T> implements Callable<T>, Comparable<Task<T>> {
 		return "(Priority of task is :" + this.taskType.getPriorityValue() + ")";
 	}
 
+	public Callable<T> getCallable() {
+		return callable;
+	}
 
+	public TaskType getTaskType() {
+		return taskType;
+	}
 }

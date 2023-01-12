@@ -1,5 +1,7 @@
 package EX2_2;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.concurrent.*;
@@ -39,7 +41,8 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 * @return a FutureTask object
 	 */
 	public <T> Future<T> submit(Task<T> task) {
-		priorityCounts[task.taskType.getPriorityValue()]++;
+		if (task == null) throw new NullPointerException();
+		priorityCounts[task.getTaskType().getPriorityValue()]++;
 		return super.submit(task);
 	}
 
@@ -52,6 +55,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 */
 
 	public <T> Future<T> submit(Callable<T> call, TaskType taskType) {
+		if (call == null || taskType == null) throw new NullPointerException();
 		return this.submit(Task.createTask(call, taskType));
 	}
 
@@ -63,7 +67,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 */
 
 
-	public <T> Future<T> submit(Callable<T> call) {
+	public <T> Future<T> submit(@NotNull Callable<T> call) {
 		return this.submit(Task.createTask(call));
 	}
 
