@@ -179,7 +179,7 @@ The class has a constructor that creates a new thread pool with the number of av
 - submit (Callable task, TaskType taskType): which is used to submit a Callable task with a TaskType object to the thread pool
 - submit (Callable task): which is used to submit a Callable task with TaskType object is set to OTHER
 
-- It also has the following methods:
+#### It also has the following methods:
 - getCurrentMax() which returns the current maximum priority count.
 - gracefullyTerminate() which calls the shutdown() method of the ThreadPoolExecutor to terminate the thread pool. 
 -  method that overrides the beforeExecute method to decrement the priority count of the task before it is executed.
