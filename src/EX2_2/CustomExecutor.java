@@ -29,7 +29,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 				new Comparator<Runnable>() {
 				@Override
 				public int compare(Runnable o1, Runnable o2) {
-					return ((MyFuture<?>) o1).compareTo((MyFuture<?>) o2);
+					return ((MyFutureTask<?>) o1).compareTo((MyFutureTask<?>) o2);
 				}
 			}));
 	}
@@ -107,7 +107,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
 	@Override
 	protected void beforeExecute(Thread t, Runnable r) {
-		MyFuture<?> myFuture = (MyFuture<?>) (r);
+		MyFutureTask<?> myFuture = (MyFutureTask<?>) (r);
 		priorityCounts[myFuture.getPriority()]--;
 	}
 
@@ -119,7 +119,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 **/
 	@Override
 	protected <T> RunnableFuture <T> newTaskFor(Callable<T> callable) {
-		return new MyFuture<T>(callable);
+		return new MyFutureTask<T>(callable);
 	}
 
 	/**

@@ -155,70 +155,57 @@ To use Ex2_1 class to Create several text files and calculate the total number o
 
 
 # Part B:
-Creating a new type that provides an asynchronous task with priority, we created a new ThreadPool type that supports tasks with
-priority.
+Our goal at this part of the project is to create  a new type that provides an asynchronous task with priority and a ThreadPool type that supports tasks priority.
+### we created three classes:
+- MyFutureTask class
+- Task class
+- CustomExecutor class
 
-### ThreadPoolExecutor
-`ThreadPoolExecutor` is a class that allows you to create and manage a pool of threads. It's part of the Java concurrency package (`java.util.concurrent`), and it provides an efficient way to run multiple tasks concurrently by reusing a fixed number of threads.
-The `ThreadPoolExecutor` class provides several methods for submitting tasks to the pool, such as `submit()`, `execute()`, and `invokeAll()`. You can also use the factory methods in the `Executors` class to create different types of thread pools.
-ThreadPoolExecutor class allows you to configure several aspects of the thread pool such as core pool size, maximum pool size, thread keep-alive time, etc.
+## Task class:
+based on the enum class we got -`TaskType`.
+The Task class is a generic class that represents a task that can be run asynchronously and can return result of any type (generic), and also may throw an exception.    
+The class implements Callable and Comparable Interfaces ,and has two instance variables, a callable object that contains the unit of work to be executed and a task type that determines the priority of the task.
+The class has two private constructors, one that takes a callable object and sets a default priority (Other) , and the other that takes a callable object and a task type.  
+The class also has two static factory methods, `createTask(Callable, TaskType)` and `createTask(Callable)`, that return new instances of the Task class.
+The class has a `compareTo()` method that compares the priority of two tasks and returns a negative value if the priority of the first task is higher than the priority of the second task, a positive value if the priority of the first task is lower than the priority of the second task, and zero if the priorities are equal. The class has a  `call()` method that executes the callable object and returns the result of the execution .                    
+The class has a `getTaskType()`method that returns the task type of the task.
+And also `getCallable()` method that returns the callable object of the task and a `toString()` method that returns a string representation of the task.
 
-###AbstractExecutorService
-`AbstractExecutorService` is an abstract class that provides a base implementation for the `ExecutorService` interface in Java. It's also part of the Java concurrency package (`java.util.concurrent`). The `ExecutorService` interface provides a way to execute tasks concurrently using a pool of threads, and `AbstractExecutorService` is a convenience class that implements some common functionality for this interface.
-AbstractExecutorService provides a basic implementation for the lifecycle methods of ExecutorService such as shutdown(), shutdownNow(), and isShutdown() and isTerminated().I
+## MyFutureTask class:
+This is an Adapter class, which extends the FutureTask class, and implements the Comparable interface.
+The main purpose of this class is to allow the Task objects, which are passed to the submit method of the CustomExecutor class,
+to be used as elements in the priority queue that is used by the thread pool.
 
-`ThreadPoolExecutor` class extends the `AbstractExecutorService` class to provide an actual implementation of thread pool executor service
+## CustomExecutor class:
+This class extends the ThreadPoolExecutor class , which is a built-in Java class for managing a pool of threads for executing tasks.
+This class represents a new type of ThreadPool that supports a queue of tasks with priority.
+The CustomExecutor class adds some additional functionality on top of the basic functionality provided by ThreadPoolExecutor.
+The class has a constructor that that creates a new thread pool with the number of available processors in the system and a default `PriorityBlockingQueue` and defines some properties such as core pool size, maximum pool size and keep-alive time. It overrides the newTaskFor method from `ThreadPoolExecutor` to return a `MyFutureTak` object for a new task, this method is used to create new instances of `MyFutureTask` for the `ThreadPoolExecutor` to use when a new task is submitted.
 
-### Callable:
-`Callable` is an interface in the Java concurrency package (`java.util.concurrent`) that defines a single method, `call()`, which is similar to the `run()` method of the `Runnable` interface, but it can return a value and throw a checked exception. A `Callable` task can be submitted to an `ExecutorService` using the `submit()` method, which returns a `Future` object that can be used to check the status of the task and retrieve its result. 
-
-### Comparable
-The `Comparable` interface is a functional interface in Java that defines a single method `compareTo(T o)`. The purpose of this interface is to define a natural ordering for objects of a certain class. Classes that implement this interface are called "comparable".
-
-## Classes:
-### TaskType
-enum `TaskType` represents different types of tasks. The enum in this class has 3 constant values `COMPUTATIONAL`, `IO` and `OTHER`. And also it has following field and methods: `typePriority` which represents an integer value that ranges from 1 to 10, and it is used to store the priority of the task type.constructor with int  parameter which takes an integer value and assigns it to `typePriority` and validate if the value is valid using validatePriority method `setPriority` method which set the new priority to `typePriority` if the passed value is valid `getPriorityValue`what the meaning o method which return the current priority value getType method which return the current type
-validatePriority method which check if the priority passed is valid or not.
-
-### Task
-This is a class called `Task` that implements the `Comparable` interface and the `Callable` interface. `Task` class is a generic class, as it uses the T generic type. It has two fields, taskType of type `TaskType` and callable of type `Callable<T>`. This callable field allows the class to store an instance of a `Callable` task and execute it later. The `Task` class has two constructors, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` The class also defines two static methods `createTask`, one of them takes two parameters `Callable<T>` and `TaskType`, the other takes one parameter `Callable<T>` and will set the `TaskType` to `OTHER.` Both of them create a new instance of `Task<T>` and return it.
-
-### Factory design patrren:
-In order for us to want a method that will hold an object from one of several options when all the objects have some common denominator. Usually we used that design patrren when we dont know what the function we need. its also a way to hide the sub classes and the sub constructors.
-In our project we used this design patrren in the function of `createTask` so that there will be no access to the constructor.
-
-It has also the following methods:
-- `getCallable` : which return the callable field
-- `getType` : which returns the priority value of the taskType
-- `toString` : which returns a string representation of the Task object
-- `compareTo`: which compares the priority of two tasks
-- `call`: which is the implementation of the Callable<T> interface, it will call the call method of the callable field and returns the result.
-- This class represents a wrapper around a Callable
-
-### MyFuture:
-`MyFuture` is extending the `FutureTask<V>` which is a concrete implementation of the `Future<V>` interface. It is also implementing the `Comparable` interface.
-The `MyFuture` class has one field priority that represents an integer value. It has a constructor that takes a `Callable<V>` and an int parameter and pass the `Callable<V>` to the constructor of the `FutureTask<V>` super class and assigns the int parameter to the priority field. The class has a method `compareTo(MyFuture o)` which is implementation of the compareTo method of the `Comparable` interface, it compares the priority of two `MyFuture` objects, and it's used to sort the collection of `MyFuture` objects based on their priority. It also has `getPriority` method which return the current priority. This class is designed to handle future asynchronous tasks with priorities. The `MyFuture` class adds a new feature to `FutureTask` which is the ability to assign a priority to the task. This class by extending the `FutureTask` class which already provides the functionality to run a task asynchronously, it adds the ability to prioritize tasks, which can be useful in situations where some tasks need to be executed before others.
-
-### Adapter Design Pattern:
-Allows classes to work together even though they have incompatible interfaces. In the class FutureTask we have 2 interfaces: `Callable` and `Runnable`, Since we were only asked to implement Callable beacuse of that we used Adapter design pattren And we created a kind of "correlation" between them his name is `MyFuture`.
-`MyFuture` extends only the method of `Callable` from `FutureTask`.
-
-### CustomExecutor:
-The class is implemetation of the `ThreadPoolExecutor` class called `CustomExecutor`. `CustomExecutor` uses a `PriorityBlockingQueue` to hold the MyFuture tasks, this queue is able to hold a collection of tasks and orders them based on the priority of each task. It also keeps track of the number of tasks for each priority using an array priorityCounts.
-
-The class has four constructors:
-A default constructor that creates a new thread pool with the number of available processors in the system and a default `PriorityBlockingQueue` and defines some properties such as core pool size, maximum pool size and keep-alive time. It overrides the newTaskFor method from `ThreadPoolExecutor` to return a `MyFuture` object for a new task, this method is used to create new instances of `MyFuture` for the `ThreadPoolExecutor` to use when a new task is submitted.
 It also has three methods that are used to submit a task to the thread pool:
 - `submit(Task task)`: which is used to submit a Task object to the thread pool and increments the priority count
 - `submit (Callable task, TaskType taskType)`: which is used to submit a Callable task with a TaskType object to the thread pool
 - `submit (Callable task)`: which is used to submit a Callable task with TaskType object is set to OTHER
-It also has two methods:
+  
+Also has a following method:
 
-`getCurrentMax()` which returns the current maximum priority count. `gracefullyTerminate()` which calls the `shutdown()` method of the `ThreadPoolExecutor` to terminate the thread pool. It also overrides the beforeExecute method to decrement the priority count of the task before it is executed. This `CustomExecutor` allows to schedule and execute the tasks according to the priority assigned to them and it also allows tracking the number of tasks for each priority
+- `getCurrentMax()` which returns the current maximum priority count. 
+- `gracefullyTerminate()` which calls the `shutdown()` method of the `ThreadPoolExecutor` to terminate the thread pool.
+- This method overrides the` beforeExecute` method to decrement the priority count of the task before it is executed.
+
+## Design Pattern 
+### Adapter Pattern
+The Adapter pattern is a structural design pattern that allows objects with incompatible interfaces to collaborate.
+In our project,we used the Adapter pattern to allow the Task objects, which are passed to the submit method of the CustomExecutor class, to be used as elements in the priority queue that is used by the thread pool.
+### Factory Method Pattern
+
+The Factory Method pattern is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
+In our project,we used the Factory Method pattern to create Task objects in the CustomExecutor class.
+For example, the submit(Callable callable, TaskType type) and submit(Callable callable) where the callable passed to the method is used to create a new task object by calling Task.createTask(callable, type) or Task.createTask(callable) respectively.
+
 
 ## UML Part B:
-![image](https://user-images.githubusercontent.com/117816462/212090121-c61bb4ac-1381-4487-9ae6-fa23332ac205.png)
-
+![img.png](img.png)
 
 
 

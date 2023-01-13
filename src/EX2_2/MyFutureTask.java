@@ -11,12 +11,12 @@ package EX2_2;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-public class MyFuture<V> extends FutureTask<V> implements Comparable<MyFuture<V>> {
+public class MyFutureTask<V> extends FutureTask<V> implements Comparable<MyFutureTask<V>> {
 
 	 final Task<V> task;
 
 
-	public MyFuture(Callable<V> callable) {
+	public MyFutureTask(Callable<V> callable) {
 		super(callable);
 		this.task = (Task<V>) callable;
 	}
@@ -38,7 +38,7 @@ public class MyFuture<V> extends FutureTask<V> implements Comparable<MyFuture<V>
 	 */
 
 	@Override
-	public int compareTo(MyFuture other) {
+	public int compareTo(MyFutureTask other) {
 
 		return Integer.compare(task.getTaskType().getPriorityValue(),
 			other.task.getTaskType().getPriorityValue());

@@ -2,11 +2,11 @@ package EX2_2;
 
 import org.junit.Test;
 
-import java.util.Optional;
 import java.util.concurrent.*;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 
 public class Tests {
@@ -16,14 +16,14 @@ public class Tests {
 	public void Test(){
 		CustomExecutor customExecutor = new CustomExecutor();
 		Callable<String> callable1 = ()-> {
-			Thread.sleep(1000);
+			sleep(1000);
 			StringBuilder sb = new StringBuilder("HELLO");
 			return sb.reverse().toString();
 		};
 
 		Callable<Integer> callable2 = ()-> {
 			//simulating long task
-			Thread.sleep(1000);
+			sleep(1000);
 			int sum = 0;
 			for (int i = 4; i <= 12; i++) {
 				sum += i;
@@ -43,11 +43,11 @@ public class Tests {
 		for (int i = 0; i < customExecutor.getQueuePriority().size(); i++) {
 			int end = i;
 			Object[] part1 = objects;
-			logger.info(()-> "the priority of " +end +" is : "+((MyFuture<?>) part1[end]).getPriority());
+			logger.info(()-> "the priority of " +end +" is : "+((MyFutureTask<?>) part1[end]).getPriority());
 		}
 
 		try {
-			Thread.sleep(3000);
+			sleep(3000);
 		} catch (InterruptedException ignored) {
 		}
 		objects = customExecutor.getQueuePriority().toArray();
@@ -55,7 +55,7 @@ public class Tests {
 			int end = i;
 			Object[] part2 = objects;
 			logger.info(()-> "the priority of "+end +" after sleep, has priority of" +
-				" "+((MyFuture<?>) part2[end]).getPriority());
+				" "+((MyFutureTask<?>) part2[end]).getPriority());
 		}
 		customExecutor.gracefullyTerminate();
 	}
@@ -138,6 +138,7 @@ public class Tests {
 		assertEquals(2, task.getTaskType().getPriorityValue());
 
 	}
+
 
 
 
