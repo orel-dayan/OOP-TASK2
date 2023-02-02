@@ -76,13 +76,13 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	 * @return the maximum priority task that the ThreadPoolExecutor executed.
 	 * * if the array is empty return zero
 	 */
+
 	public int getCurrentMax() {
 		for (int i = 0; i < MIN_PRIORITY; i++) {
 			if (this.priorityCounts[i] != 0) {
-				return i + 1;
+				return i;
 			}
 		}
-		System.out.println("there is no task in queue");
 		return 0;
 	}
 
@@ -108,7 +108,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 	@Override
 	protected void beforeExecute(Thread t, Runnable r) {
 		MyFutureTask<?> myFuture = (MyFutureTask<?>) (r);
-		priorityCounts[myFuture.getPriority()]--;
+		 priorityCounts[myFuture.getPriority()]--;
 	}
 
 	/**

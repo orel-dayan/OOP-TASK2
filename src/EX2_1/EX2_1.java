@@ -12,9 +12,9 @@ public class EX2_1 {
 	 */
     public static void main(String[] args) {
         long start, end;
-        int numberOfFiles = 1000;
-        int maxNumberOfLines = 1001;
-        String[] fileNames = createTextFiles(numberOfFiles, 2, maxNumberOfLines);
+        int numberOfFiles = 100000;
+        int maxNumberOfLines = 100;
+        String[] fileNames = createTextFiles(numberOfFiles, 1, maxNumberOfLines);
         System.out.println("Checking " + numberOfFiles + " files with " + maxNumberOfLines + " maximum lines each:");
         System.out.println("---------------------------------------------------------");
         start = System.currentTimeMillis();
