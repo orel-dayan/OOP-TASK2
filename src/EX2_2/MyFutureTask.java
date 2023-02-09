@@ -6,6 +6,9 @@ package EX2_2;
  * The main purpose of this class is to allow the Task objects,
  * which are passed to the submit method of the CustomExecutor class,
  * to be used as elements in the priority queue that is used by the thread pool.
+ *
+ *  The class propose is to enable to the PriorityQueue in the ThreadPool to compare between the FutureTasks queued in
+ *  * it by the priority of the original Task class it wrapping.
  */
 
 import java.util.concurrent.Callable;

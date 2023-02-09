@@ -8,20 +8,21 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Tests {
 	public static final Logger logger = LoggerFactory.getLogger(Tests.class);
 
 	@Test
-	public void Test(){
+	public void Test() {
 		CustomExecutor customExecutor = new CustomExecutor();
-		Callable<String> callable1 = ()-> {
+		Callable<String> callable1 = () -> {
 			sleep(1000);
 			StringBuilder sb = new StringBuilder("HELLO");
 			return sb.reverse().toString();
 		};
 
-		Callable<Integer> callable2 = ()-> {
+		Callable<Integer> callable2 = () -> {
 			//simulating long task
 			sleep(1000);
 			int sum = 0;
@@ -34,16 +35,16 @@ public class Tests {
 		Future<?>[] futures = new Future[30];
 		for (int i = 0; i < futures.length; i++) {
 			// Insert the less important tasks first and more important
-			if (i <= futures.length/2)
+			if (i <= futures.length / 2)
 				futures[i] = customExecutor.submit(callable1, TaskType.OTHER);
 			else
 				futures[i] = customExecutor.submit(callable2, TaskType.COMPUTATIONAL);
 		}
-		Object [] objects = customExecutor.getQueuePriority().toArray();
+		Object[] objects = customExecutor.getQueuePriority().toArray();
 		for (int i = 0; i < customExecutor.getQueuePriority().size(); i++) {
 			int end = i;
 			Object[] part1 = objects;
-			logger.info(()-> "the priority of " +end +" is : "+((MyFutureTask<?>) part1[end]).getPriority());
+			logger.info(() -> "the priority of " + end + " is : " + ((MyFutureTask<?>) part1[end]).getPriority());
 		}
 
 		try {
@@ -64,7 +65,7 @@ public class Tests {
 	public void partialTest(){
 		CustomExecutor customExecutor = new CustomExecutor();
 
-		var task = Task.createTask(()->{
+		var task = Task.createTask(() -> {
 			int sum = 0;
 
 			for (int i = 1; i <= 10; i++)
@@ -76,29 +77,25 @@ public class Tests {
 		var sumTask = customExecutor.submit(task);
 		final int sum;
 
-		try
-		{
+		try {
 			sum = (int) sumTask.get(1, TimeUnit.MILLISECONDS);
-		}
-
-		catch (InterruptedException | ExecutionException | TimeoutException e)
-		{
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
 			throw new RuntimeException(e);
 		}
 
-		logger.info(()-> "Sum of 1 through 10 = " + sum);
+		logger.info(() -> "Sum of 1 through 10 = " + sum);
 
-		Callable<Double> callable1 = ()-> {
+		Callable<Double> callable1 = () -> {
 			return 1000 * Math.pow(1.02, 5);
 		};
 
-		Callable<String> callable2 = ()-> {
+		Callable<String> callable2 = () -> {
 			StringBuilder sb = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			return sb.reverse().toString();
 		};
 
 		// var is used to infer the declared type automatically
-		var priceTask = customExecutor.submit(()-> {
+		var priceTask = customExecutor.submit(() -> {
 			return 1000 * Math.pow(1.02, 5);
 		}, TaskType.COMPUTATIONAL);
 
@@ -106,20 +103,16 @@ public class Tests {
 		final Double totalPrice;
 		final String reversed;
 
-		try
-		{
+		try {
 			totalPrice = priceTask.get();
 			reversed = reverseTask.get();
-		}
-
-		catch (InterruptedException | ExecutionException e)
-		{
+		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(e);
 		}
 
-		logger.info(()-> "Reversed String = " + reversed);
-		logger.info(()->String.valueOf("Total Price = " + totalPrice));
-		logger.info(()-> "Current maximum priority = " + customExecutor.getCurrentMax());
+		logger.info(() -> "Reversed String = " + reversed);
+		logger.info(() -> String.valueOf("Total Price = " + totalPrice));
+		logger.info(() -> "Current maximum priority = " + customExecutor.getCurrentMax());
 		customExecutor.gracefullyTerminate();
 	}
 
@@ -128,7 +121,7 @@ public class Tests {
 		Task<Integer> task = Task.createTask(() -> {
 			int sum = 0;
 			for (int i = 1; i <= 10; i++) {
-				sum*=i;
+				sum *= i;
 			}
 			return sum;
 		}, TaskType.COMPUTATIONAL);
@@ -138,10 +131,13 @@ public class Tests {
 		assertEquals(2, task.getTaskType().getPriorityValue());
 
 	}
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
 
