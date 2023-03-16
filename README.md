@@ -163,7 +163,7 @@ Our goal at this part of the project is to create a new type that provides an as
 
 ## Task
 This is a generic Task class that represents a task with a type that returns a result and may throw an exception. Each task has a priority used for scheduling, based on the TaskType enum.
-The class has two instance variables, a callable object that contains the unit of work to be executed and a task type that determines the priority of the task. The class has two private constructors, one  that takes in a callable object and sets a default value for the pirority, and the other one takes a callable object and a task type.
+The class has two instance variables, a callable object that contains the unit of work to be executed and a task type that determines the priority of the task. The class has two private constructors, one  that takes  a callable object and sets a default value for the pirority, and the other one takes a callable object and a task type.  
 The class also has two static factory methods, createTask(Callable, TaskType) and createTask(Callable), that return new instances of the Task class. The class also has getter methods for the callable and priority instance variables and a compareTo() method that compares the priority of the current task to another task passed as a parameter.
 
 ## MyFutureTask
@@ -179,7 +179,7 @@ The class has a constructor that creates a new thread pool with the number of av
 - submit (Callable task, TaskType taskType): which is used to submit a Callable task with a TaskType object to the thread pool
 - submit (Callable task): which is used to submit a Callable task with TaskType object is set to OTHER
 
-- It also has the following methods:
+#### It also has the following methods:
 - getCurrentMax() which returns the current maximum priority count.
 - gracefullyTerminate() which calls the shutdown() method of the ThreadPoolExecutor to terminate the thread pool. 
 -  method that overrides the beforeExecute method to decrement the priority count of the task before it is executed.
